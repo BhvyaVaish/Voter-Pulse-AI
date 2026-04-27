@@ -1,0 +1,28 @@
+{
+  "name": "Voter Pulse AI",
+  "short_name": "VoterPulse",
+  "description": "Your Agentic Election Coach — From registration to voting, your step-by-step civic journey guide powered by Google Gemini AI.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0E1611",
+  "theme_color": "#0A3625",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["education", "government"],
+  "lang": "en",
+  "dir": "ltr"
+}

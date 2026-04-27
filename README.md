@@ -2,7 +2,9 @@
 
 > **Your Agentic Election Coach — From Confusion to Confident Participation**
 
-Voter Pulse AI is a full-stack, AI-powered civic education platform built to bridge the gap between complex Election Commission of India (ECI) procedures and citizen participation. It acts as a personalized, gamified election coach — guiding first-time and returning voters step-by-step from registration to casting their vote, all powered by **Google Gemini AI**.
+**`🚀 Built with Google Gemini AI`** · **`🏗️ Built using Google Antigravity`** · **`📱 Installable PWA`** · **`🌐 5 Indian Languages`**
+
+Voter Pulse AI is a full-stack, **Gemini-powered** civic education platform built to bridge the gap between complex Election Commission of India (ECI) procedures and citizen participation. At its core, the app uses **Google Gemini 1.5 Flash** as an agentic AI engine — delivering context-aware, multilingual, trust-labeled civic coaching to every Indian voter, from registration to casting their vote.
 
 ---
 
@@ -81,6 +83,7 @@ Voter Pulse AI uses **Google Gemini 1.5 Flash** as the core AI engine powering t
 | **Gamified Experience** | 8 unique badges, XP points, 4 civic levels, and progress tracking to motivate civic engagement. |
 | **Polling Day Guide** | Comprehensive checklist for voting day — what to bring, what to expect, and booth finding. |
 | **Eligibility Checker** | Instant eligibility verification based on age, citizenship, and residency status. |
+| **Installable PWA** | Add to Home Screen on any device — works offline with service worker caching for a native app-like experience. |
 
 ---
 
@@ -99,6 +102,8 @@ Voter Pulse AI uses **Google Gemini 1.5 Flash** as the core AI engine powering t
 | **Animations** | Framer Motion + native CSS keyframes |
 | **Fonts** | Inter (body) + Outfit (headings) via Google Fonts |
 | **NLP** | Custom fuzzy intent detection engine with Levenshtein distance |
+| **PWA** | Web App Manifest + Service Worker (offline caching) |
+| **Responsive** | Mobile-first design with safe-area support for notched devices |
 
 ---
 
@@ -206,6 +211,20 @@ voter-pulse-ai/
     Navigate to [http://localhost:3000](http://localhost:3000)
 
 > **Note:** The app works without a Gemini API key in offline mode — the AI assistant will use curated local responses instead of Gemini.
+
+### 📱 Install as Mobile App (PWA)
+
+Voter Pulse AI is a **Progressive Web App** — it can be installed directly from the browser on any device:
+
+- **Android (Chrome):** Tap the menu (⋮) → "Add to Home screen" or "Install app"
+- **iOS (Safari):** Tap the share button (↑) → "Add to Home Screen"
+- **Desktop (Chrome/Edge):** Click the install icon (⊕) in the address bar
+
+Once installed, the app runs in standalone mode with:
+- Full-screen native app experience (no browser chrome)
+- Offline caching via service worker
+- Safe area support for notched devices (iPhone X+, Android punch-hole cameras)
+- Touch-optimized UI with 44px minimum tap targets
 
 ---
 

@@ -244,3 +244,82 @@ h1, h2, h3, h4, h5, h6 {
 .animate-fadeInUpLate {
   animation: fadeInUp 0.5s ease-out 0.8s both;
 }
+
+/* ─── PWA & Mobile Optimization ─── */
+
+/* Use dvh (dynamic viewport height) for full-screen layouts */
+@supports (height: 100dvh) {
+  .min-h-screen { min-height: 100dvh; }
+}
+
+/* Safe area padding for notched devices (iPhone X+, Android punch-hole) */
+@supports (padding: env(safe-area-inset-bottom)) {
+  .lg\:hidden.fixed.bottom-0 {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  body {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+}
+
+/* Standalone PWA mode — hide browser chrome artifacts */
+@media (display-mode: standalone) {
+  body {
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    overscroll-behavior-y: contain;
+  }
+  /* Prevent pull-to-refresh in standalone */
+  html { overscroll-behavior: none; }
+}
+
+/* Touch-friendly improvements */
+@media (hover: none) and (pointer: coarse) {
+  /* Disable hover effects on touch devices (no ghost hovers) */
+  .treemap-block:hover { filter: none; transform: none; }
+  
+  /* Larger tap targets for mobile */
+  button, a, select, input { min-height: 44px; }
+  
+  /* Smooth momentum scrolling */
+  .overflow-y-auto, .overflow-x-auto {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Mobile-first responsive fixes */
+@media (max-width: 480px) {
+  /* Tighter padding on very small screens */
+  .px-4 { padding-left: 0.75rem; padding-right: 0.75rem; }
+  .px-6 { padding-left: 1rem; padding-right: 1rem; }
+  
+  /* Reduce heading sizes for small screens */
+  .text-4xl { font-size: 1.75rem; }
+  .text-3xl { font-size: 1.5rem; }
+  .text-2xl { font-size: 1.25rem; }
+  
+  /* Countdown digits fit on small screens */
+  .countdown-digit {
+    padding: 6px 8px;
+    font-size: 1.25rem;
+    min-width: 36px;
+  }
+  
+  /* EVM ballot grid tighter on mobile */
+  .evm-btn {
+    padding: 6px 10px;
+    font-size: 0.65rem;
+  }
+}
+
+/* Tablet-specific optimizations */
+@media (min-width: 481px) and (max-width: 1023px) {
+  .max-w-5xl, .max-w-4xl, .max-w-6xl {
+    max-width: 100%;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+

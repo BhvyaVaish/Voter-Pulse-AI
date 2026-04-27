@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Outfit } from "next/font/google";
 import "./globals.css";
 import { ClientProviders } from "./providers";
@@ -15,11 +15,33 @@ const outfit = Outfit({
   variable: "--font-outfit",
 });
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  viewportFit: "cover",
+  themeColor: "#0A3625",
+};
+
 export const metadata: Metadata = {
   title: "Voter Pulse AI — Your Agentic Election Coach",
   description:
     "Bridge the gap between complex ECI procedures and citizen participation. From registration to voting — your step-by-step civic journey guide.",
   keywords: ["voter", "election", "India", "ECI", "registration", "EVM", "VVPAT", "civic"],
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "VoterPulse",
+  },
+  other: {
+    "mobile-web-app-capable": "yes",
+  },
+  icons: {
+    icon: "/icons/icon-192.png",
+    apple: "/icons/icon-192.png",
+  },
 };
 
 export default function RootLayout({
@@ -31,7 +53,7 @@ export default function RootLayout({
       className={`${inter.variable} ${outfit.variable} antialiased dark`}
       suppressHydrationWarning
     >
-      <body className="min-h-screen flex flex-col bg-background text-foreground relative">
+      <body className="min-h-screen min-h-dvh flex flex-col bg-background text-foreground relative">
         <ClientProviders>{children}</ClientProviders>
         
         {/* Soothing Floating Demo Badge */}
@@ -41,6 +63,19 @@ export default function RootLayout({
             <span>Educational Demo • Fictional Data</span>
           </div>
         </div>
+
+        {/* Service Worker Registration */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if ('serviceWorker' in navigator) {
+                window.addEventListener('load', function() {
+                  navigator.serviceWorker.register('/sw.js').catch(function() {});
+                });
+              }
+            `,
+          }}
+        />
       </body>
     </html>
   );

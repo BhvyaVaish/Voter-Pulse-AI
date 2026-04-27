@@ -3,8 +3,8 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import {
   Home, Route, MessageCircle, Compass, User, Vote, ShieldCheck,
-  AlertTriangle, MapPin, Calendar, Bell, ChevronLeft, ChevronRight,
-  Moon, Sun, Menu, MessageSquare, Trophy, Landmark, RotateCcw
+  AlertTriangle, Calendar, Bell, ChevronLeft, ChevronRight,
+  MessageSquare, Trophy, Landmark, RotateCcw
 } from 'lucide-react';
 import { useState } from 'react';
 import { useTranslation } from '@/lib/i18n/provider';
@@ -58,8 +58,8 @@ export function DesktopSidebar() {
     <aside className={`hidden lg:flex flex-col fixed left-0 top-0 h-screen border-r border-border bg-card z-40 transition-all duration-300 ${collapsed ? 'w-16' : 'w-56'}`}>
       {/* Logo */}
       <div className="p-4 border-b border-border flex items-center gap-2">
-        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-bottle-light to-bottle flex items-center justify-center flex-shrink-0">
-          <Vote className="w-4 h-4 text-white" />
+        <div className="w-8 h-8 bg-white/95 rounded-lg flex items-center justify-center flex-shrink-0 p-1 shadow-sm">
+          <img src="/logo.png" alt="Voter Pulse AI" className="w-full h-full object-contain drop-shadow-sm" />
         </div>
         {!collapsed && (
           <span className="font-heading font-bold text-sm">

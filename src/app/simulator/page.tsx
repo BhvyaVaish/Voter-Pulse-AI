@@ -149,7 +149,7 @@ export default function SimulatorPage() {
 
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_200px_280px] gap-4">
               {/* Ballot Unit */}
-              <div className="glass-card p-4">
+              <div className="glass-card p-4 overflow-x-auto">
                 <div className="flex items-center justify-between mb-3">
                   <div>
                     <h2 className="font-heading font-semibold text-sm">Ballot Unit</h2>
