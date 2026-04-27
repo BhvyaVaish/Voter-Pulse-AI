@@ -8,7 +8,7 @@ Voter Pulse AI is a full-stack, AI-powered civic education platform built to bri
 
 ## 📌 Problem Statement
 
-**Track: Open Innovation**
+**Hackathon: PromptWars Virtual (India by Hack2Skill & GDG)**
 
 India has 960+ million eligible voters, yet millions fail to participate in elections due to:
 - **Complex registration processes** — Forms 6, 7, 8 are confusing for first-time voters.
@@ -211,14 +211,34 @@ voter-pulse-ai/
 
 ## 🌐 Deployment
 
-Deploy to Vercel with one click:
+This application is designed to be deployed on **Google Cloud Run**, as per the PromptWars Virtual guidelines.
 
-```bash
-npm run build    # Verify production build
-npx vercel       # Deploy to Vercel
-```
+### Deploying to Google Cloud Run
 
-Remember to add `GEMINI_API_KEY` to your Vercel environment variables.
+1. **Install Google Cloud CLI (`gcloud`)** and authenticate:
+   ```bash
+   gcloud auth login
+   gcloud config set project YOUR_PROJECT_ID
+   ```
+
+2. **Deploy using Cloud Run source deployment** (Next.js is supported out of the box):
+   ```bash
+   gcloud run deploy voter-pulse-ai \
+     --source . \
+     --region asia-south1 \
+     --allow-unauthenticated \
+     --set-env-vars GEMINI_API_KEY=your_gemini_api_key_here
+   ```
+
+3. **Get your Live URL**
+   Once the deployment finishes, the CLI will output a live `.run.app` URL. This is the link you will submit on the PromptWars dashboard.
+
+### Submission Checklist
+- [x] Code built exclusively using **Google Antigravity**.
+- [x] Source code pushed to a public GitHub repository.
+- [ ] Application deployed live on **Google Cloud Run**.
+- [ ] Technical Blog Post written ("Build-in-Public" journey).
+- [ ] LinkedIn Post shared.
 
 ---
 
@@ -228,4 +248,4 @@ This project is licensed under the [MIT License](LICENSE).
 
 ---
 
-*Built with ❤️ for Indian democracy — Empowering every citizen to participate confidently.*
+*Built with ❤️ for Indian democracy and PromptWars Virtual using Google Antigravity.*
