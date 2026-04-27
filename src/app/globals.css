@@ -1,26 +1,246 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Wattle (Accent) */
+  --wattle: #CCDA47;
+  --wattle-light: #DCE575;
+  --wattle-dark: #B5C43A;
+  
+  /* Bottle Green (Primary Tone) */
+  --bottle: #0A3625;
+  --bottle-light: #155038;
+  --bottle-dark: #042015;
+
+  /* Sage */
+  --sage: #66BB6A;
+  --sage-light: #81C784;
+  --sage-dark: #388E3C;
+
+  /* Amber */
+  --amber: #F59E0B;
+  --amber-light: #FCD34D;
+  --amber-dark: #D97706;
+
+  /* Backgrounds & Text */
+  --background: #FDFBF7;
+  --foreground: #0A3625;
+  --card: #FFFFFF;
+  --card-foreground: #0A3625;
+  --muted: #F1F4EA;
+  --muted-foreground: #6B7B71;
+  --border: #DDE2D5;
+  --ring: #0A3625; /* Use bottle for ring */
+  --radius: 12px;
+}
+
+.dark {
+  --background: #0E1611;
+  --foreground: #EDF1EC;
+  --card: #152219;
+  --card-foreground: #EDF1EC;
+  --muted: #1F3025;
+  --muted-foreground: #94A89A;
+  --border: #2C4234;
+  --ring: #CCDA47; /* Use wattle for ring in dark mode */
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  
+  --color-wattle: var(--wattle);
+  --color-wattle-light: var(--wattle-light);
+  --color-wattle-dark: var(--wattle-dark);
+  
+  --color-bottle: var(--bottle);
+  --color-bottle-light: var(--bottle-light);
+  --color-bottle-dark: var(--bottle-dark);
+  
+  --color-sage: var(--sage);
+  --color-sage-light: var(--sage-light);
+  --color-sage-dark: var(--sage-dark);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-amber: var(--amber);
+  --color-amber-50: #FFFBEB;
+  --color-amber-100: #FEF3C7;
+  --color-amber-200: #FDE68A;
+  --color-amber-300: #FCD34D;
+  --color-amber-400: #FBBF24;
+  --color-amber-500: #F59E0B;
+  --color-amber-600: #D97706;
+  --color-amber-700: #B45309;
+  --color-amber-800: #92400E;
+  --color-amber-900: #78350F;
+  --color-amber-950: #451A03;
+
+  --font-sans: var(--font-inter);
+  --font-heading: var(--font-outfit);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-outfit), system-ui, sans-serif;
+}
+
+/* Glassmorphism card */
+.glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: var(--radius);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+}
+.dark .glass-card {
+  background: rgba(21, 34, 25, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Pulse animation for "What's Next" */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(10, 54, 37, 0.4); } /* Bottle glow */
+  50% { box-shadow: 0 0 0 12px rgba(10, 54, 37, 0); }
+}
+.pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+
+/* EVM blue button */
+.evm-btn {
+  background: linear-gradient(135deg, #3B82F6, #1D4ED8);
+  border: 2px solid #1E3A8A;
+  border-radius: 6px;
+  color: white;
+  font-weight: 700;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: all 0.15s;
+  position: relative;
+  overflow: hidden;
+}
+.evm-btn:active {
+  transform: scale(0.95);
+  background: linear-gradient(135deg, #2563EB, #1E40AF);
+}
+.evm-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(255,255,255,0.3) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.evm-btn:active::after { opacity: 1; }
+
+/* VVPAT slip animation */
+@keyframes slip-print {
+  0% { transform: translateY(-100%); opacity: 0; }
+  15% { transform: translateY(0); opacity: 1; }
+  85% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(100%); opacity: 0; }
+}
+.vvpat-slip { animation: slip-print 7s ease-in-out forwards; }
+
+/* EVM LED */
+.led {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: #374151;
+  transition: all 0.3s;
+}
+.led.active {
+  background: #EF4444;
+  box-shadow: 0 0 8px 2px rgba(239, 68, 68, 0.6);
+}
+.led.ready {
+  background: #22C55E;
+  box-shadow: 0 0 8px 2px rgba(34, 197, 94, 0.6);
+}
+
+/* Smooth page transitions */
+.page-enter { opacity: 0; transform: translateY(12px); }
+.page-enter-active { opacity: 1; transform: translateY(0); transition: all 0.3s ease-out; }
+
+/* Lightweight page fadeIn (replaces Framer Motion per-page) */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fadeIn { animation: fadeIn 0.25s ease-out; }
+
+/* Badge glow */
+@keyframes badge-glow {
+  0%, 100% { filter: drop-shadow(0 0 4px rgba(204, 218, 71, 0.3)); } /* Wattle glow */
+  50% { filter: drop-shadow(0 0 12px rgba(204, 218, 71, 0.6)); }
+}
+.badge-earned { animation: badge-glow 2s ease-in-out infinite; }
+
+/* Countdown digits */
+.countdown-digit {
+  background: var(--bottle);
+  color: white;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  min-width: 48px;
+  text-align: center;
+}
+.dark .countdown-digit {
+  background: var(--bottle-light);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--muted-foreground); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--foreground); }
+
+/* Treemap */
+.treemap-block {
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: white;
+  padding: 4px;
+  text-align: center;
+  transition: all 0.2s;
+}
+.treemap-block:hover {
+  filter: brightness(1.15);
+  transform: scale(1.02);
+}
+
+/* ─── Entrance animations (replace framer-motion on critical pages) ─── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0); }
+  to   { opacity: 1; transform: scale(1); }
+}
+.animate-fadeInUp {
+  animation: fadeInUp 0.5s ease-out both;
+}
+.animate-scaleIn {
+  animation: scaleIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both;
+}
+.animate-fadeInUpDelay {
+  animation: fadeInUp 0.5s ease-out 0.35s both;
+}
+.animate-fadeInUpLate {
+  animation: fadeInUp 0.5s ease-out 0.8s both;
 }
