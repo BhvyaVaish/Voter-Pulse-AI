@@ -1,16 +1,35 @@
-// Offline English-only knowledge base for Voter Pulse AI
-// Provides curated response templates for each detected intent
+/**
+ * @file knowledgeBase.ts
+ * @description Provides a curated, offline knowledge base of election-related responses.
+ * This file serves as the local "Brain" for the Voter Pulse AI when API connectivity is limited.
+ */
 
 import { type IntentId } from './chatEngine';
 
+/**
+ * Defines the trustworthiness of a knowledge base entry.
+ * 'verified': Crowdsourced and vetted by community/experts.
+ * 'official': Sourced directly from ECI or government portals.
+ * 'informational': Educational content with external citations.
+ * 'general': Supportive or conversational context.
+ */
 export type TrustLevel = 'verified' | 'official' | 'informational' | 'general';
 
+/**
+ * Structure for a knowledge base response object.
+ */
 export interface KnowledgeResponse {
+  /** The core answer text provided to the user. */
   answer: string;
+  /** The trust category for UI badge display. */
   trustLevel: TrustLevel;
+  /** Suggested follow-up actions to guide the user. */
   quickActions: { label: string; action: string }[];
 }
 
+/**
+ * Local knowledge repository mapped to Intent IDs.
+ */
 const knowledgeBase: Record<IntentId, KnowledgeResponse> = {
 
   ELIGIBILITY_CHECK: {

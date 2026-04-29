@@ -61,9 +61,10 @@ export default function HomePage() {
           <button
             onClick={() => router.push('/onboarding')}
             className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-bottle-light to-bottle text-white font-bold text-lg shadow-lg shadow-bottle hover:shadow-xl hover:shadow-bottle hover:scale-[1.03] active:scale-[0.98] transition-all animate-fadeInUpDelay"
+            aria-label="Start My Civic Journey"
           >
             Start My Civic Journey
-            <ArrowRight className="w-5 h-5" />
+            <ArrowRight className="w-5 h-5" aria-hidden="true" />
           </button>
         </div>
 

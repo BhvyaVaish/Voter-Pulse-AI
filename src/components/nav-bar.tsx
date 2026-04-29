@@ -80,9 +80,11 @@ export function DesktopSidebar() {
               className={`flex items-center gap-3 mx-2 px-3 py-2.5 rounded-lg text-sm font-medium transition-all ${
                 isActive ? 'bg-bottle text-wattle' : 'text-muted-foreground hover:text-foreground hover:bg-muted'
               }`}
-              title={collapsed ? item.label : undefined}
+              title={item.label}
+              aria-label={`Navigate to ${item.label}`}
+              aria-current={isActive ? 'page' : undefined}
             >
-              <item.icon className="w-4.5 h-4.5 flex-shrink-0" />
+              <item.icon className="w-4.5 h-4.5 flex-shrink-0" aria-hidden="true" />
               {!collapsed && <span>{item.label}</span>}
             </Link>
           );

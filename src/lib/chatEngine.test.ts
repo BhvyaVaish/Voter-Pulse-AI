@@ -37,17 +37,31 @@ describe('detectIntentAdvanced', () => {
     expect(result.intent).toBe('GREETING')
   })
 
-  it('should return GENERAL for empty input', () => {
-    const result = detectIntentAdvanced('', dictionary, 'en')
-    expect(result.intent).toBe('GENERAL')
-    expect(result.confidence).toBe(0)
+  it('should handle noisy input and still detect intent', () => {
+    const result = detectIntentAdvanced('hey can you please tell me if i am actually allowed to vote in the next election', dictionary, 'en')
+    expect(result.intent).toBe('ELIGIBILITY_CHECK')
+    expect(result.confidence).toBeGreaterThan(0.5)
   })
 
-  it('should handle multi-language localized labels', () => {
-    const resultEn = detectIntentAdvanced('can i vote', dictionary, 'en')
-    expect(resultEn.label).toBe('Eligibility Check')
-
-    const resultHi = detectIntentAdvanced('क्या मैं वोट दे सकता हूँ', dictionary, 'hi')
-    expect(resultHi.label).toBe('पात्रता जाँच')
+  it('should handle severe typos in core keywords', () => {
+    // "registrashun" instead of "registration"
+    const result = detectIntentAdvanced('voter id registrashun help', dictionary, 'en')
+    expect(result.intent).toBe('REGISTRATION_HELP')
   })
-})
+
+  it('should prioritize specific phrases over generic keywords', () => {
+    const result = detectIntentAdvanced('voter registration application track', dictionary, 'en')
+    expect(result.intent).toBe('REGISTRATION_HELP')
+  })
+
+  it('should handle mixed language input gracefully', () => {
+    // Mixed Hindi/English "Voter registration kaise kare"
+    const result = detectIntentAdvanced('Voter registration kaise kare', dictionary, 'hi')
+    expect(result.intent).toBe('REGISTRATION_HELP')
+  })
+
+  it('should return low confidence for completely irrelevant input', () => {
+    const result = detectIntentAdvanced('what is the weather in mumbai', dictionary, 'en')
+    expect(result.confidence).toBeLessThan(0.3)
+  })
+});

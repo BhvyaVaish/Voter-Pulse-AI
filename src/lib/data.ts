@@ -1,3 +1,11 @@
+/**
+ * @file data.ts
+ * @description Mock data and utility functions for candidate information and regional data.
+ */
+
+/**
+ * List of basic candidate details for quick lookup and symbols.
+ */
 export const candidates = [
   { id: 1, name: 'Priya Sharma', party: 'Progressive Alliance', symbol: 'Sun', color: '#F59E0B' },
   { id: 2, name: 'Rajesh Kumar', party: 'National Democratic Front', symbol: 'Flower2', color: '#EC4899' },
@@ -8,6 +16,9 @@ export const candidates = [
   { id: 7, name: 'NOTA', party: 'None of the Above', symbol: 'X', color: '#6B7280' },
 ];
 
+/**
+ * Detailed candidate profiles for the Simulator and Candidate Info modules.
+ */
 export const mockCandidateProfiles = [
   {
     id: 1, name: 'Arjun Mehta', party: 'Progressive Alliance', constituency: 'Mumbai South',
@@ -53,6 +64,9 @@ export const mockCandidateProfiles = [
   },
 ];
 
+/**
+ * List of Indian states and Union Territories.
+ */
 export const indianStates = [
   'Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chhattisgarh', 'Goa', 'Gujarat',
   'Haryana', 'Himachal Pradesh', 'Jharkhand', 'Karnataka', 'Kerala', 'Madhya Pradesh',
@@ -61,6 +75,11 @@ export const indianStates = [
   'Uttarakhand', 'West Bengal', 'Delhi', 'Jammu & Kashmir', 'Ladakh',
 ];
 
+/**
+ * Formats a numerical amount into the Indian Rupee (INR) system (Cr/L).
+ * @param amount The numerical value to format.
+ * @returns A formatted string (e.g., ₹1.2 Cr).
+ */
 export function formatINR(amount: number): string {
   if (amount >= 10000000) return `₹${(amount / 10000000).toFixed(1)} Cr`;
   if (amount >= 100000) return `₹${(amount / 100000).toFixed(1)} L`;

@@ -1,24 +1,51 @@
+/**
+ * @file elections-data.ts
+ * @description Provides comprehensive data and computation logic for Indian elections.
+ * Dynamically determines election status based on assembly term expiry dates.
+ */
+
 // ─── Comprehensive Indian Elections Data ───
 // Computes upcoming elections dynamically based on 5-year assembly terms.
 // All CEO links are official .gov.in / .nic.in domains.
 import { format } from 'date-fns';
 
+/**
+ * Categorization of the type of election being held.
+ */
 export type ElectionType = 'general' | 'state_assembly' | 'ut_assembly' | 'by-election';
+
+/**
+ * Current lifecycle stage of an election event.
+ */
 export type ElectionStatus = 'completed' | 'ongoing' | 'announced' | 'upcoming' | 'expected';
+
+/**
+ * Geographical regional mapping for categorization.
+ */
 export type Region = 'north' | 'south' | 'east' | 'west' | 'northeast' | 'central';
 
+/**
+ * Static information about a State or Union Territory's election metadata.
+ */
 export interface StateInfo {
   name: string;
   code: string;
   type: 'state' | 'ut';
   region: Region;
   seats: number;
-  lastElectionDate: string;     // ISO date of last assembly election
-  termExpiryDate: string;       // ISO date when current assembly term expires
-  ceoUrl: string;               // Chief Electoral Officer website
-  eciStateUrl: string;          // ECI page for the state
+  /** ISO date of the most recent assembly election. */
+  lastElectionDate: string;
+  /** ISO date when the current constitutional term expires. */
+  termExpiryDate: string;
+  /** Link to the State's Chief Electoral Officer website. */
+  ceoUrl: string;
+  /** Link to the ECI's dedicated state landing page. */
+  eciStateUrl: string;
 }
 
+/**
+ * Dynamic event structure representing a specific election cycle.
+ */
 export interface ElectionEvent {
   id: string;
   name: string;
@@ -27,9 +54,12 @@ export interface ElectionEvent {
   stateCode: string;
   region: Region;
   seats: number;
-  scheduledDate?: string;       // Confirmed polling date
+  /** Confirmed date of polling if announced. */
+  scheduledDate?: string;
+  /** Detailed phase breakdown if available. */
   scheduledPhases?: { phase: number; date: string; constituencies?: string }[];
-  estimatedPeriod: string;      // e.g., "Apr 2027"
+  /** Estimated date or month of election (computed). */
+  estimatedPeriod: string;
   resultDate?: string;
   status: ElectionStatus;
   ceoUrl: string;

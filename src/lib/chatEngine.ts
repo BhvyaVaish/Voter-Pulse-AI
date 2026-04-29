@@ -1,5 +1,14 @@
+/**
+ * @file chatEngine.ts
+ * @description Provides a custom, offline Natural Language Processing (NLP) engine for intent detection.
+ * Utilizes Levenshtein distance for fuzzy matching and supports multi-lingual intent mapping.
+ */
+
 // Fuzzy NLP Engine for offline multilingual intent detection
 
+/**
+ * Unique identifiers for different types of user intents.
+ */
 export type IntentId =
   | 'ELIGIBILITY_CHECK'
   | 'REGISTRATION_HELP'
@@ -16,9 +25,15 @@ export type IntentId =
   | 'GREETING'
   | 'GENERAL';
 
+/**
+ * Structure of the result returned by the intent detection engine.
+ */
 export interface IntentResult {
+  /** The unique ID of the detected intent. */
   intent: IntentId;
+  /** Numerical value representing detection certainty (0.0 to 1.0). */
   confidence: number;
+  /** A human-readable, localized label for the intent. */
   label: string;
 }
 
