@@ -1,5 +1,6 @@
 'use client';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import {
   Home, Route, MessageCircle, Compass, User, Vote, ShieldCheck,
@@ -43,7 +44,7 @@ export function DesktopSidebar() {
   const pathname = usePathname();
   const router = useRouter();
   const { language, setLanguage } = useTranslation();
-  const { darkMode, toggleDarkMode, xp, level, badges, resetAll } = useAppStore();
+  const { xp, level, badges, resetAll } = useAppStore();
   const [collapsed, setCollapsed] = useState(false);
   const [showResetConfirm, setShowResetConfirm] = useState(false);
   const earnedCount = badges.filter((b) => b.earned).length;
@@ -58,8 +59,8 @@ export function DesktopSidebar() {
     <aside className={`hidden lg:flex flex-col fixed left-0 top-0 h-screen border-r border-border bg-card z-40 transition-all duration-300 ${collapsed ? 'w-16' : 'w-56'}`}>
       {/* Logo */}
       <div className="p-4 border-b border-border flex items-center gap-2">
-        <div className="w-8 h-8 bg-white/95 rounded-lg flex items-center justify-center flex-shrink-0 p-1 shadow-sm">
-          <img src="/logo.png" alt="Voter Pulse AI" className="w-full h-full object-contain drop-shadow-sm" />
+        <div className="w-8 h-8 bg-white/95 rounded-lg flex items-center justify-center flex-shrink-0 p-1 shadow-sm relative">
+          <Image src="/logo.png" alt="Voter Pulse AI" fill className="object-contain drop-shadow-sm p-1" />
         </div>
         {!collapsed && (
           <span className="font-heading font-bold text-sm">

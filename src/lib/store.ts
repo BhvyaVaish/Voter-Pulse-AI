@@ -91,10 +91,19 @@ interface AppState {
     eligible: boolean | null;
   };
 
+  // User
+  user: {
+    uid: string | null;
+    email: string | null;
+    displayName: string | null;
+    photoURL: string | null;
+  } | null;
+
   // Badge popup
   pendingBadge: Badge | null;
 
   // Actions
+  setUser: (user: AppState['user']) => void;
   setPersona: (p: Persona) => void;
   setLanguage: (l: Language) => void;
   toggleDarkMode: () => void;
@@ -154,7 +163,9 @@ export const useAppStore = create<AppState>()(
       chatHistory: [],
       eligibility: { dob: '', isCitizen: true, residency: '', checked: false, eligible: null },
       pendingBadge: null,
+      user: null,
 
+      setUser: (user) => set({ user }),
       setPersona: (p) => set({ persona: p }),
       setLanguage: (l) => set({ language: l }),
       toggleDarkMode: () => set((s) => ({ darkMode: !s.darkMode })),
@@ -204,7 +215,7 @@ export const useAppStore = create<AppState>()(
         reports: [], reminders: [], chatHistory: [], xp: 0, level: 'Civic Beginner',
         onboardingCompleted: false, onboardingStep: 0, onboardingAnswers: {},
         eligibility: { dob: '', isCitizen: true, residency: '', checked: false, eligible: null },
-        pendingBadge: null,
+        pendingBadge: null, user: null,
       }),
     }),
     { name: 'voterpulse-storage' }

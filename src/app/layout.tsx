@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Outfit } from "next/font/google";
 import "./globals.css";
 import { ClientProviders } from "./providers";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
+import { FirebaseSync } from "@/components/FirebaseSync";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -33,7 +35,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "VoterPulse",
+    title: "Voter Pulse",
   },
   other: {
     "mobile-web-app-capable": "yes",
@@ -53,8 +55,14 @@ export default function RootLayout({
       className={`${inter.variable} ${outfit.variable} antialiased dark`}
       suppressHydrationWarning
     >
+      <head>
+        <GoogleAnalytics ga_id={process.env.NEXT_PUBLIC_GA_ID || ""} />
+      </head>
       <body className="min-h-screen min-h-dvh flex flex-col bg-background text-foreground relative">
-        <ClientProviders>{children}</ClientProviders>
+        <ClientProviders>
+          <FirebaseSync />
+          {children}
+        </ClientProviders>
         
         {/* Soothing Floating Demo Badge */}
         <div className="absolute top-4 right-4 z-[100] pointer-events-none">

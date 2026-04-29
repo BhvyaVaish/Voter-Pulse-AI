@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Clock, ScrollText, FileEdit, ClipboardList, LogOut, Megaphone, CheckSquare, Hash, Trophy } from 'lucide-react';
+import { ScrollText, FileEdit, ClipboardList, LogOut, Megaphone, CheckSquare, Hash, Trophy } from 'lucide-react';
 import { getNextQualifyingDate } from '@/lib/eligibility';
 import { differenceInDays, differenceInHours, differenceInMinutes, differenceInSeconds, format } from 'date-fns';
 

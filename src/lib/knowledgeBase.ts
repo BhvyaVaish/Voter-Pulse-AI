@@ -1,4 +1,4 @@
-// Offline English-only knowledge base for VoterPulse AI
+// Offline English-only knowledge base for Voter Pulse AI
 // Provides curated response templates for each detected intent
 
 import { type IntentId } from './chatEngine';
@@ -68,7 +68,7 @@ const knowledgeBase: Record<IntentId, KnowledgeResponse> = {
       `2. **Affidavits** — All candidates must file sworn affidavits with details of criminal cases, assets, liabilities, and educational qualifications. These are publicly available.\n` +
       `3. **MyNeta.info** — Run by the Association for Democratic Reforms (ADR), this website provides detailed analysis of candidate backgrounds.\n` +
       `4. **Voter Helpline App** — Check the "Know Your Candidate" section.\n\n` +
-      `Remember: VoterPulse AI does not endorse any candidate or party. Make an informed choice based on publicly available facts.`,
+      `Remember: Voter Pulse AI does not endorse any candidate or party. Make an informed choice based on publicly available facts.`,
     trustLevel: 'informational',
     quickActions: [
       { label: 'View Affidavits', action: 'Where can I see candidate affidavits?' },
@@ -182,7 +182,7 @@ const knowledgeBase: Record<IntentId, KnowledgeResponse> = {
       `• **State Assembly Elections (Vidhan Sabha)** — Held every 5 years per state. Dates vary by state.\n` +
       `• **By-Elections** — Held when a seat falls vacant mid-term due to resignation, death, or disqualification.\n\n` +
       `The ECI announces the exact dates, phases, and Model Code of Conduct enforcement period through press conferences and official notifications.\n\n` +
-      `Visit eci.gov.in or check the VoterPulse Election Tracker for the latest schedule updates.`,
+      `Visit eci.gov.in or check the Voter Pulse Election Tracker for the latest schedule updates.`,
     trustLevel: 'official',
     quickActions: [
       { label: 'Upcoming Elections', action: 'Which states have upcoming elections?' },
@@ -233,7 +233,7 @@ const knowledgeBase: Record<IntentId, KnowledgeResponse> = {
 
   GREETING: {
     answer:
-      `Namaste! Welcome to VoterPulse AI — your trusted civic assistant for Indian elections.\n\n` +
+      `Namaste! Welcome to Voter Pulse AI — your trusted civic assistant for Indian elections.\n\n` +
       `I can help you with:\n` +
       `• Checking voter eligibility\n` +
       `• Registering as a new voter\n` +

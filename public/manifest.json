@@ -1,6 +1,6 @@
 {
   "name": "Voter Pulse AI",
-  "short_name": "VoterPulse",
+  "short_name": "Voter Pulse",
   "description": "Your Agentic Election Coach — From registration to voting, your step-by-step civic journey guide powered by Google Gemini AI.",
   "start_url": "/",
   "display": "standalone",

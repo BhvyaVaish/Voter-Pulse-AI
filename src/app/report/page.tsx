@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, Camera, MapPin, Send, Eye, EyeOff, CheckCircle2, Clock, Users, Shield, Banknote, GlassWater, ClipboardList, Megaphone, HelpCircle } from 'lucide-react';
+import { ArrowLeft, Camera, MapPin, Send, Eye, EyeOff, CheckCircle2, Users, Shield, Banknote, GlassWater, ClipboardList, Megaphone, HelpCircle } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from '@/lib/i18n/provider';
 import { useAppStore } from '@/lib/store';

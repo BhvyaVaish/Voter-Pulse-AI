@@ -1,7 +1,7 @@
 'use client';
 import { Trophy, Star, Shield, ClipboardCheck, BookOpen, Vote, Megaphone, ListChecks, Zap, CheckCircle2, Lock } from 'lucide-react';
+import Image from 'next/image';
 import { useAppStore } from '@/lib/store';
-import { useTranslation } from '@/lib/i18n/provider';
 
 const badgeIcons: Record<string, typeof Trophy> = {
   'civic-starter': Star,
@@ -21,9 +21,35 @@ const levels = [
   { name: 'Election Champion', minXp: 601, maxXp: 1000, color: 'from-bottle-light to-yellow-500' },
 ];
 
+import { auth, googleProvider } from '@/lib/firebase';
+import { signInWithPopup, signOut } from 'firebase/auth';
+
 export default function ProfilePage() {
-  const { t } = useTranslation();
-  const { persona, badges, xp, level, questSteps, voteHistory } = useAppStore();
+  const { persona, badges, xp, level, questSteps, voteHistory, user, setUser } = useAppStore();
+
+  const handleLogin = async () => {
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      const u = result.user;
+      setUser({
+        uid: u.uid,
+        email: u.email,
+        displayName: u.displayName,
+        photoURL: u.photoURL,
+      });
+    } catch (error) {
+      console.error('Login failed:', error);
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      setUser(null);
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
+  };
   const earnedBadges = badges.filter((b) => b.earned);
   const completedSteps = questSteps.filter((s) => s.completed).length;
   const totalSteps = questSteps.length;
@@ -35,6 +61,38 @@ export default function ProfilePage() {
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-6 space-y-6 animate-fadeIn">
+      {/* Auth Card */}
+      <div className="glass-card p-6 flex items-center justify-between">
+        {user ? (
+          <div className="flex items-center gap-4">
+            <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-bottle-light shadow-sm">
+              <Image src={user.photoURL || ''} alt={user.displayName || 'User'} fill className="object-cover" />
+            </div>
+            <div>
+              <h2 className="font-heading font-bold text-lg leading-tight">{user.displayName}</h2>
+              <p className="text-xs text-muted-foreground">{user.email}</p>
+              <button onClick={handleLogout} className="text-[10px] font-bold text-red-500 hover:text-red-400 mt-1 transition-colors">Sign Out</button>
+            </div>
+          </div>
+        ) : (
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between w-full gap-4">
+            <div>
+              <h2 className="font-heading font-bold text-lg leading-tight">Save Your Progress</h2>
+              <p className="text-xs text-muted-foreground">Sign in with Google to backup your badges and XP.</p>
+            </div>
+            <button
+              onClick={handleLogin}
+              className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-white text-black font-bold text-sm shadow-sm hover:bg-gray-50 transition-all border border-border"
+            >
+              <div className="relative w-4 h-4">
+                <Image src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" fill className="object-contain" />
+              </div>
+              Sign in with Google
+            </button>
+          </div>
+        )}
+      </div>
+
       <div className="text-center">
         <h1 className="font-heading text-2xl font-bold">My Profile</h1>
         <p className="text-sm text-muted-foreground">{personaLabel} Journey</p>

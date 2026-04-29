@@ -30,8 +30,12 @@ export default function DashboardPage() {
   const { t } = useTranslation();
   const { persona, questSteps, badges, xp, level, onboardingCompleted } = useAppStore();
   const [mounted, setMounted] = useState(false);
+  const [tipIndex, setTipIndex] = useState(0);
 
-  useEffect(() => { setMounted(true); }, []);
+  useEffect(() => {
+    setMounted(true); // eslint-disable-line react-hooks/exhaustive-deps
+    setTipIndex(Math.floor(Date.now() / 10000) % tips.length);
+  }, []);
 
   useEffect(() => {
     if (mounted && !onboardingCompleted) router.replace('/');
@@ -57,7 +61,6 @@ export default function DashboardPage() {
   const earnedBadges = badges.filter((b) => b.earned).length;
   const nextDate = getNextQualifyingDate();
   const daysToNext = differenceInDays(nextDate, new Date());
-  const tipIndex = Math.floor(Date.now() / 10000) % tips.length;
 
   const personaLabel = persona === 'new-voter' ? 'New Voter Journey' : persona === 'existing-voter' ? 'Existing Voter Journey' : 'Civic Action Journey';
 

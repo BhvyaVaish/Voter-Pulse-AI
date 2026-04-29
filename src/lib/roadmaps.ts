@@ -29,6 +29,12 @@ export const civicActionRoadmap: QuestStep[] = [
   { id: 'candidate-kyc', title: 'Monitor Candidate Disclosures', description: 'Review financial affidavits and criminal declarations', icon: 'scale', completed: false, active: false, whatYouNeed: ['Access to ADR portal or ECI affidavit site'], commonMistake: 'Only looking at total assets without checking liabilities and cases.', links: [{ text: 'Official ECI Candidate Affidavits', url: 'https://affidavit.eci.gov.in/' }] },
 ];
 
+/**
+ * Generates a tailored civic journey roadmap based on the user's persona.
+ * 
+ * @param persona - The user's role: 'new-voter', 'existing-voter', or 'civic-action'.
+ * @returns An array of QuestStep objects representing the personalized journey.
+ */
 export function getRoadmap(persona: string): QuestStep[] {
   switch (persona) {
     case 'new-voter': return newVoterRoadmap.map((s) => ({ ...s }));

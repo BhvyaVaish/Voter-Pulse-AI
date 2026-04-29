@@ -1,9 +1,8 @@
 'use client';
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, Info, ShieldAlert, ArrowRight, Sun, Flower2, Wheat, Scale, Leaf, Star, X as XIcon, Vote as VoteIcon, CheckCircle2 as CheckCircle2Icon, AlertTriangle, ExternalLink } from 'lucide-react';
+import { Info, ShieldAlert, ArrowRight, Sun, Flower2, Wheat, Scale, Leaf, Star, X as XIcon, Vote as VoteIcon, CheckCircle2 as CheckCircle2Icon, AlertTriangle, ExternalLink } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useTranslation } from '@/lib/i18n/provider';
 import { useAppStore } from '@/lib/store';
 import { candidates } from '@/lib/data';
 import { playBeep, playPrint, playSuccess } from '@/lib/sounds';
@@ -15,7 +14,6 @@ const IconMap: Record<string, React.ElementType> = {
 };
 
 export default function SimulatorPage() {
-  const { t } = useTranslation();
   const router = useRouter();
   const { addVote, earnBadge, completeStep, addXP } = useAppStore();
 
@@ -28,7 +26,11 @@ export default function SimulatorPage() {
 
   useEffect(() => {
     if (phase !== 'vvpat') return;
-    if (vvpatTimer <= 0) { setPhase('done'); playSuccess(); return; }
+    if (vvpatTimer <= 0) {
+      setPhase('done'); // eslint-disable-line react-hooks/set-state-in-effect
+      playSuccess();
+      return;
+    }
     const id = setTimeout(() => setVvpatTimer((v) => v - 1), 1000);
     return () => clearTimeout(id);
   }, [phase, vvpatTimer]);

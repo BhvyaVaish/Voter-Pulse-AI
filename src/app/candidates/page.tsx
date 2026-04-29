@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, ChevronUp, X, AlertTriangle, GraduationCap, IndianRupee, ExternalLink } from 'lucide-react';
+import { ChevronDown, ChevronUp, X, AlertTriangle, GraduationCap, ExternalLink } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
 import { mockCandidateProfiles, formatINR } from '@/lib/data';
 import { TrustLabel } from '@/components/trust-label';
@@ -248,7 +248,7 @@ export default function CandidatesPage() {
         </button>
         {viewedIds.size < mockCandidateProfiles.length && (
           <p className="text-xs text-amber-500 mt-3 font-medium">
-            💡 Tip: Expand and view all candidate profiles to earn the "Informed Citizen" badge!
+            💡 Tip: Expand and view all candidate profiles to earn the &quot;Informed Citizen&quot; badge!
           </p>
         )}
       </div>

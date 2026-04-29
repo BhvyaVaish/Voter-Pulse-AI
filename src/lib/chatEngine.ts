@@ -97,7 +97,15 @@ function scoreIntent(input: string, config: IntentConfig): number {
   return score;
 }
 
-// Main detection function
+/**
+ * Main detection function for identifying user intent from natural language input.
+ * Uses a combination of phrase matching, exact keyword matching, and fuzzy word matching.
+ * 
+ * @param input - The raw text input from the user.
+ * @param dictionary - The IntentDictionary containing keywords and phrases for each intent.
+ * @param language - The current user language (e.g., 'en', 'hi', 'ta', 'bn', 'mr').
+ * @returns An IntentResult containing the detected intent, confidence score (0-1.0), and localized label.
+ */
 export function detectIntentAdvanced(
   input: string,
   dictionary: IntentDictionary,

@@ -30,7 +30,7 @@ export default function MockVotePage() {
   useEffect(() => {
     if (phase !== 'vvpat') return;
     if (vvpatTimer <= 0) {
-      setPhase('done');
+      setPhase('done'); // eslint-disable-line react-hooks/set-state-in-effect
       playSuccess();
       return;
     }
