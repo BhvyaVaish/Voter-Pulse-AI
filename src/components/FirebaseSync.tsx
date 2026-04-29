@@ -11,6 +11,7 @@ export function FirebaseSync() {
 
   // Sync Auth State
   useEffect(() => {
+    if (!auth) return;
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
       if (firebaseUser) {
         const userData = {

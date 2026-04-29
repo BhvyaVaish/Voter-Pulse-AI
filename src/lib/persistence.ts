@@ -7,6 +7,7 @@ import { db } from './firebase';
  * @param data The progress data to save.
  */
 export async function saveProgress(uid: string, data: Record<string, unknown>) {
+  if (!db) return;
   try {
     const docRef = doc(db, 'users', uid);
     await setDoc(docRef, {
@@ -23,6 +24,7 @@ export async function saveProgress(uid: string, data: Record<string, unknown>) {
  * @param uid The user's unique identifier.
  */
 export async function loadProgress(uid: string) {
+  if (!db) return null;
   try {
     const docRef = doc(db, 'users', uid);
     const docSnap = await getDoc(docRef);

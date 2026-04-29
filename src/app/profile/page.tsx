@@ -28,6 +28,10 @@ export default function ProfilePage() {
   const { persona, badges, xp, level, questSteps, voteHistory, user, setUser } = useAppStore();
 
   const handleLogin = async () => {
+    if (!auth) {
+      console.error('Firebase Auth not initialized');
+      return;
+    }
     try {
       const result = await signInWithPopup(auth, googleProvider);
       const u = result.user;
@@ -43,6 +47,7 @@ export default function ProfilePage() {
   };
 
   const handleLogout = async () => {
+    if (!auth) return;
     try {
       await signOut(auth);
       setUser(null);
