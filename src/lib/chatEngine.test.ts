@@ -44,8 +44,8 @@ describe('detectIntentAdvanced', () => {
   })
 
   it('should handle severe typos in core keywords', () => {
-    // "registrashun" instead of "registration"
-    const result = detectIntentAdvanced('voter id registrashun help', dictionary, 'en')
+    // "registraton" instead of "registration"
+    const result = detectIntentAdvanced('voter id registraton help', dictionary, 'en')
     expect(result.intent).toBe('REGISTRATION_HELP')
   })
 

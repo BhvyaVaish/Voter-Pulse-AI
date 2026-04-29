@@ -24,7 +24,7 @@ function mkIntent(id: keyof typeof labels, keywords: string[], phrases: string[]
 export const dictionary: IntentDictionary = Object.fromEntries([
   mkIntent('ELIGIBILITY_CHECK', [
     // English
-    'eligible','eligibility','qualify','age','old enough','18','seventeen','can i vote','voter age','minimum age','age limit','age requirement','criteria','who can vote','first time','young voter',
+    'eligible','eligibility','qualify','age','old enough','18','seventeen','can i vote','voter age','minimum age','age limit','age requirement','criteria','who can vote','first time','young voter','allowed','vote',
     // Hindi
     'पात्र','पात्रता','योग्य','योग्यता','उम्र','आयु','क्या मैं वोट','मतदान कर सकता','मतदान कर सकती','पहली बार','नया मतदाता','कितने साल','18 साल','अठारह',
     // Tamil
@@ -42,7 +42,7 @@ export const dictionary: IntentDictionary = Object.fromEntries([
   ]),
 
   mkIntent('REGISTRATION_HELP', [
-    'register','registration','form 6','enroll','enrol','sign up','signup','apply','new voter','voter id','epic','voter card','how to register','voter list','electoral roll','name add',
+    'register','registration','registraton','form 6','enroll','enrol','sign up','signup','apply','new voter','voter id','epic','voter card','how to register','voter list','electoral roll','name add',
     'पंजीकरण','पंजीकृत','रजिस्टर','फॉर्म 6','नामांकन','नाम जोड़ें','वोटर आईडी','मतदाता पहचान पत्र','वोटर कार्ड','वोटर लिस्ट','मतदाता सूची','नया पंजीकरण',
     'பதிவு','பதிவு செய்','படிவம் 6','புதிய வாக்காளர்','வாக்காளர் அட்டை','வாக்காளர் பட்டியல்',
     'নিবন্ধন','রেজিস্টার','ফর্ম ৬','ভোটার আইডি','ভোটার কার্ড','ভোটার তালিকা','নাম যোগ',

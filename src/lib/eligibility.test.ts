@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { checkEligibility, getNextQualifyingDate } from './eligibility'
-import { format } from 'date-fns'
+import { format, startOfDay } from 'date-fns'
 
 describe('checkEligibility', () => {
   it('should identify eligible adult citizens', () => {
@@ -26,10 +26,10 @@ describe('checkEligibility', () => {
   })
 
   it('should handle advance application for those turning 18 soon', () => {
-    const today = new Date()
+    const today = startOfDay(new Date())
     const nextQD = getNextQualifyingDate(today)
     
-    // Set DOB so they are 17 now but 18 exactly on the next qualifying date
+    // Exactly 18 on the next qualifying date
     const dob = new Date(nextQD.getFullYear() - 18, nextQD.getMonth(), nextQD.getDate())
     const dobStr = format(dob, 'yyyy-MM-dd')
     

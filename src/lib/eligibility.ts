@@ -1,4 +1,4 @@
-import { differenceInYears, differenceInDays, isBefore, isAfter, startOfDay, format } from 'date-fns';
+import { differenceInYears, differenceInDays, isBefore, isAfter, startOfDay, format, parseISO } from 'date-fns';
 
 const QUALIFYING_DATES = [
   { month: 0, day: 1 },  // Jan 1
@@ -44,8 +44,8 @@ export function checkEligibility(
   isCitizen: boolean,
   isNRI: boolean = false
 ): EligibilityResult {
-  const today = new Date();
-  const birthDate = new Date(dob);
+  const today = startOfDay(new Date());
+  const birthDate = startOfDay(parseISO(dob));
   const nextQD = getNextQualifyingDate(today);
   const prevQD = getPreviousQualifyingDate(today);
   const daysUntilNext = differenceInDays(nextQD, today);

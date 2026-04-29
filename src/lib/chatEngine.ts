@@ -59,7 +59,9 @@ function levenshtein(a: string, b: string): number {
 function fuzzyMatch(word: string, keyword: string): boolean {
   if (word === keyword) return true;
   if (keyword.length <= 3) return word === keyword;
-  const maxDist = keyword.length <= 5 ? 1 : 2;
+  let maxDist = 1;
+  if (keyword.length > 5) maxDist = 2;
+  if (keyword.length > 8) maxDist = 3; // Allow more typos for long words
   return levenshtein(word, keyword) <= maxDist;
 }
 
