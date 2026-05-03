@@ -1,14 +1,17 @@
 /**
  * @file firebase.ts
- * @description Firebase initialization using environment variables exclusively.
- * No hardcoded credentials. All values must be supplied via environment variables.
- * For local development: copy .env.example to .env.local and fill in your values.
- * For production (Cloud Run): set these as environment variables in the console.
+ * @description Firebase initialization with environment-variable-based configuration.
+ * Values are injected at build time via Dockerfile ENV directives in production,
+ * or via .env.local during local development.
  */
-import { initializeApp, getApps, getApp, type FirebaseApp } from 'firebase/app';
-import { getAuth, GoogleAuthProvider, type Auth } from 'firebase/auth';
-import { getFirestore, type Firestore } from 'firebase/firestore';
+import { initializeApp, getApps, getApp } from 'firebase/app';
+import { getAuth, GoogleAuthProvider } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
 
+/**
+ * Firebase configuration sourced from NEXT_PUBLIC_ environment variables.
+ * These are embedded at build time by Next.js and available on the client.
+ */
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
@@ -20,29 +23,22 @@ const firebaseConfig = {
 };
 
 /**
- * Returns true only when all required Firebase env vars are present.
- * Prevents the app from silently initializing with undefined values.
+ * Firebase application instance (singleton pattern).
+ * Prevents re-initialization during hot module replacement.
  */
-export const isFirebaseConfigured =
-  !!firebaseConfig.apiKey &&
-  !!firebaseConfig.authDomain &&
-  !!firebaseConfig.projectId &&
-  !!firebaseConfig.appId;
+export const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
 
 /**
- * Firebase application instance (singleton pattern).
- * Returns null if environment variables are not configured.
+ * Firebase Authentication instance.
  */
-let app: FirebaseApp | null = null;
-let auth: Auth | null = null;
-let db: Firestore | null = null;
-let googleProvider: GoogleAuthProvider | null = null;
+export const auth = getAuth(app);
 
-if (isFirebaseConfigured) {
-  app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
-  auth = getAuth(app);
-  db = getFirestore(app);
-  googleProvider = new GoogleAuthProvider();
-}
+/**
+ * Firestore Database instance.
+ */
+export const db = getFirestore(app);
 
-export { app, auth, db, googleProvider };
+/**
+ * Google Auth Provider instance for Sign-in with Google.
+ */
+export const googleProvider = new GoogleAuthProvider();
