@@ -36,6 +36,13 @@ function WealthBar({ candidates: data }: { candidates: typeof mockCandidateProfi
   );
 }
 
+/**
+ * Candidate Research Dashboard.
+ * Allows users to browse fictional candidate profiles, compare assets side-by-side,
+ * and review criminal disclosures for educational purposes.
+ * 
+ * @returns {JSX.Element} The rendered candidate research page.
+ */
 export default function CandidatesPage() {
   const router = useRouter();
   const { completeStep, earnBadge, addXP } = useAppStore();

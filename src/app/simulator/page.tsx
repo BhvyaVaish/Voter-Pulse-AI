@@ -13,6 +13,13 @@ const IconMap: Record<string, React.ElementType> = {
   Sun, Flower2, Wheat, Scale, Leaf, Star, X: XIcon
 };
 
+/**
+ * Interactive EVM + VVPAT Voting Simulator.
+ * Provides a high-fidelity recreation of the Indian voting booth experience
+ * to educate first-time voters and reduce anxiety.
+ * 
+ * @returns {JSX.Element} The rendered simulator page.
+ */
 export default function SimulatorPage() {
   const router = useRouter();
   const { addVote, earnBadge, completeStep, addXP } = useAppStore();

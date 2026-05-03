@@ -4,9 +4,43 @@
  */
 
 /**
+ * Basic candidate information for symbols and colors.
+ */
+export interface Candidate {
+  id: number;
+  name: string;
+  party: string;
+  symbol: string;
+  color: string;
+}
+
+/**
+ * Detailed candidate profile for educational research.
+ */
+export interface CandidateProfile {
+  id: number;
+  name: string;
+  party: string;
+  constituency: string;
+  age: number;
+  education: string;
+  profession: string;
+  assets: {
+    movable: number;
+    immovable: number;
+    total: number;
+  };
+  liabilities: number;
+  criminalCases: number;
+  criminalDetails: string[];
+  photo: string | null;
+  symbol: string;
+}
+
+/**
  * List of basic candidate details for quick lookup and symbols.
  */
-export const candidates = [
+export const candidates: Candidate[] = [
   { id: 1, name: 'Priya Sharma', party: 'Progressive Alliance', symbol: 'Sun', color: '#F59E0B' },
   { id: 2, name: 'Rajesh Kumar', party: 'National Democratic Front', symbol: 'Flower2', color: '#EC4899' },
   { id: 3, name: 'Ananya Patel', party: "People's United Party", symbol: 'Wheat', color: '#10B981' },
@@ -19,48 +53,48 @@ export const candidates = [
 /**
  * Detailed candidate profiles for the Simulator and Candidate Info modules.
  */
-export const mockCandidateProfiles = [
+export const mockCandidateProfiles: CandidateProfile[] = [
   {
     id: 1, name: 'Arjun Mehta', party: 'Progressive Alliance', constituency: 'Mumbai South',
     age: 52, education: 'MBA - IIM Ahmedabad', profession: 'Industrialist',
     assets: { movable: 4500000000, immovable: 8200000000, total: 12700000000 },
     liabilities: 2100000000, criminalCases: 0, criminalDetails: [],
-    photo: null,
+    photo: null, symbol: 'Sun'
   },
   {
     id: 2, name: 'Sneha Reddy', party: 'National Democratic Front', constituency: 'Mumbai South',
     age: 41, education: 'LLB - National Law School', profession: 'Advocate',
     assets: { movable: 120000000, immovable: 350000000, total: 470000000 },
     liabilities: 50000000, criminalCases: 0, criminalDetails: [],
-    photo: null,
+    photo: null, symbol: 'Flower2'
   },
   {
     id: 3, name: 'Ramesh Yadav', party: 'People\'s United Party', constituency: 'Mumbai South',
     age: 58, education: 'Class XII', profession: 'Farmer / Politician',
     assets: { movable: 980000000, immovable: 2400000000, total: 3380000000 },
     liabilities: 800000000, criminalCases: 3, criminalDetails: ['IPC 420 - Cheating', 'IPC 406 - Criminal Breach of Trust', 'IPC 384 - Extortion'],
-    photo: null,
+    photo: null, symbol: 'Wheat'
   },
   {
     id: 4, name: 'Fatima Khan', party: 'Social Justice League', constituency: 'Mumbai South',
     age: 35, education: 'PhD - Political Science, JNU', profession: 'Academic / Social Worker',
     assets: { movable: 8000000, immovable: 22000000, total: 30000000 },
     liabilities: 5000000, criminalCases: 0, criminalDetails: [],
-    photo: null,
+    photo: null, symbol: 'Scale'
   },
   {
     id: 5, name: 'Karthik Iyer', party: 'Green Earth Movement', constituency: 'Mumbai South',
     age: 44, education: 'B.Tech - IIT Madras', profession: 'Tech Entrepreneur',
     assets: { movable: 650000000, immovable: 1200000000, total: 1850000000 },
     liabilities: 300000000, criminalCases: 1, criminalDetails: ['IPC 500 - Defamation'],
-    photo: null,
+    photo: null, symbol: 'Leaf'
   },
   {
     id: 6, name: 'Sunita Kumari', party: 'Independent', constituency: 'Mumbai South',
     age: 48, education: 'MA - Sociology', profession: 'NGO Worker',
     assets: { movable: 3500000, immovable: 12000000, total: 15500000 },
     liabilities: 2000000, criminalCases: 0, criminalDetails: [],
-    photo: null,
+    photo: null, symbol: 'Star'
   },
 ];
 

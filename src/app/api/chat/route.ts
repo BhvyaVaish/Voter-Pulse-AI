@@ -20,6 +20,13 @@ Respond in JSON format with this structure:
   "nextStep": "Optional next roadmap action suggestion"
 }`;
 
+/**
+ * Handles POST requests for the AI Chat assistant.
+ * Integrates with Google Gemini 1.5 Flash API with a custom civic-tuned system prompt.
+ * 
+ * @param request - The incoming NextRequest containing messages and userState.
+ * @returns A JSON response with the AI's answer, trust level, and suggested actions.
+ */
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
@@ -46,7 +53,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(getOfflineResponse(messages[messages.length - 1]?.content || ''));
     }
 
-    // Map messages for Gemini API
+    // Map messages for Gemini API with strict typing
     const geminiMessages = messages.slice(-6).map((m: { role: string; content: string }) => ({
       role: m.role === 'assistant' ? 'model' : 'user',
       parts: [{ text: m.content }]
@@ -84,7 +91,9 @@ export async function POST(request: NextRequest) {
         const parsed = JSON.parse(jsonMatch[0]);
         return NextResponse.json(parsed);
       }
-    } catch { /* fall through */ }
+    } catch (err) { 
+      console.warn('Failed to parse AI JSON response, falling back to text parsing.', err);
+    }
 
     // Parse trust level from plain text fallback
     const trustMatch = text.match(/\[TRUST:\s*(OFFICIAL|VERIFIED|EXPLANATORY|UNCERTAIN)\]/i);
@@ -98,7 +107,7 @@ export async function POST(request: NextRequest) {
       nextStep: null,
     });
 
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Chat API Error:', error);
     return NextResponse.json({
       answer: 'I apologize, but I am temporarily unavailable. Please try again in a moment. For urgent queries, visit voters.eci.gov.in.',

@@ -2,34 +2,72 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
+/**
+ * Defines the user's role and journey type.
+ */
 export type Persona = 'new-voter' | 'existing-voter' | 'civic-action' | null;
+
+/**
+ * Supported application languages.
+ */
 export type Language = 'en' | 'hi' | 'ta' | 'bn' | 'mr';
+
+/**
+ * Verifiable trust levels for AI and information sources.
+ */
 export type TrustLevel = 'OFFICIAL' | 'VERIFIED' | 'EXPLANATORY' | 'MOCK_DATA' | 'UNCERTAIN' | 'ECI_SOURCE';
 
+/**
+ * A single step in the voter roadmap journey.
+ */
 export interface QuestStep {
+  /** Unique identifier for the step */
   id: string;
+  /** Title displayed in the UI */
   title: string;
+  /** Description of what the step entails */
   description: string;
+  /** Lucide icon name */
   icon: string;
+  /** Completion status */
   completed: boolean;
+  /** Whether this is the current active step */
   active: boolean;
+  /** Required documents or information for this step */
   whatYouNeed?: string[];
+  /** Common errors voters make at this stage */
   commonMistake?: string;
+  /** Official resources for this stage */
   links?: { text: string; url: string }[];
+  /** Sub-tasks for the user to complete */
   checklist?: string[];
 }
 
+/**
+ * Gamification element awarded for completing milestones.
+ */
 export interface Badge {
+  /** Unique badge identifier */
   id: string;
+  /** Name of the achievement */
   title: string;
+  /** Short summary of how it was earned */
   description: string;
+  /** Icon name */
   icon: string;
+  /** Hex color for the badge theme */
   color: string;
+  /** Experience points rewarded upon earning */
   xpReward: number;
+  /** Whether the user has earned this badge */
   earned: boolean;
+  /** Timestamp of when it was earned */
   earnedAt?: string;
 }
 
+/**
+ * Record of a simulated vote cast in the EVM simulator.
+ */
 export interface VoteRecord {
   candidateId: number;
   candidateName: string;
@@ -37,6 +75,9 @@ export interface VoteRecord {
   timestamp: string;
 }
 
+/**
+ * User-submitted report for election violations or issues.
+ */
 export interface Report {
   id: string;
   type: string;
@@ -46,6 +87,9 @@ export interface Report {
   location: string;
 }
 
+/**
+ * Personalized election event reminders.
+ */
 export interface Reminder {
   id: string;
   title: string;
@@ -53,6 +97,9 @@ export interface Reminder {
   notified: boolean;
 }
 
+/**
+ * Data captured during the initial onboarding flow.
+ */
 export interface OnboardingAnswers {
   isRegistered?: string;
   age?: string;
@@ -61,28 +108,45 @@ export interface OnboardingAnswers {
   primaryInterest?: string;
 }
 
+/**
+ * The root application state schema.
+ */
 interface AppState {
-  // Core
+  /** Current user persona determined by onboarding */
   persona: Persona;
+  /** User's preferred language */
   language: Language;
+  /** UI theme preference */
   darkMode: boolean;
+  /** Whether onboarding has been fully completed */
   onboardingCompleted: boolean;
+  /** Current step in the onboarding flow */
   onboardingStep: number;
+  /** Raw answers from onboarding */
   onboardingAnswers: OnboardingAnswers;
 
   // Journey
+  /** Current roadmap steps based on persona */
   questSteps: QuestStep[];
+  /** All available and earned badges */
   badges: Badge[];
+  /** Total user experience points */
   xp: number;
+  /** User's civic engagement level title */
   level: string;
 
   // Features
+  /** History of simulated votes */
   voteHistory: VoteRecord[];
+  /** User submitted violation reports */
   reports: Report[];
+  /** Scheduled reminders */
   reminders: Reminder[];
+  /** Local chat history with AI assistant */
   chatHistory: Array<{ role: 'user' | 'assistant'; content: string; trustLevel?: TrustLevel }>;
 
   // Eligibility
+  /** Stored eligibility check parameters and results */
   eligibility: {
     dob: string;
     isCitizen: boolean;
@@ -91,7 +155,7 @@ interface AppState {
     eligible: boolean | null;
   };
 
-  // User
+  /** Authenticated user details from Firebase */
   user: {
     uid: string | null;
     email: string | null;
@@ -99,30 +163,51 @@ interface AppState {
     photoURL: string | null;
   } | null;
 
-  // Badge popup
+  /** The most recently earned badge, for display in popups */
   pendingBadge: Badge | null;
 
   // Actions
+  /** Updates the authenticated user state */
   setUser: (user: AppState['user']) => void;
+  /** Sets the user's primary journey path */
   setPersona: (p: Persona) => void;
+  /** Updates global language setting */
   setLanguage: (l: Language) => void;
+  /** Toggles dark/light mode */
   toggleDarkMode: () => void;
+  /** Finalizes the onboarding status */
   setOnboardingCompleted: (v: boolean) => void;
+  /** Navigates through onboarding screens */
   setOnboardingStep: (s: number) => void;
+  /** Persists onboarding responses */
   setOnboardingAnswers: (a: Partial<OnboardingAnswers>) => void;
+  /** Initializes the roadmap steps */
   setQuestSteps: (steps: QuestStep[]) => void;
+  /** Marks a journey step as completed and activates the next */
   completeStep: (id: string) => void;
+  /** Awards a badge if requirements are met */
   earnBadge: (id: string) => void;
+  /** Clears the current badge popup */
   dismissBadge: () => void;
+  /** Grants XP to the user */
   addXP: (amount: number) => void;
+  /** Records a simulated vote */
   addVote: (v: VoteRecord) => void;
+  /** Submits a new violation report */
   addReport: (r: Report) => void;
+  /** Updates status of an existing report */
   updateReportStatus: (id: string, status: Report['status']) => void;
+  /** Schedules a new reminder */
   addReminder: (r: Reminder) => void;
+  /** Deletes a reminder */
   removeReminder: (id: string) => void;
+  /** Appends a message to the AI chat history */
   addChatMessage: (msg: { role: 'user' | 'assistant'; content: string; trustLevel?: TrustLevel }) => void;
+  /** Clears the entire chat history */
   clearChat: () => void;
+  /** Stores the results of an eligibility check */
   setEligibility: (e: Partial<AppState['eligibility']>) => void;
+  /** Resets the entire application state (for testing or restart) */
   resetAll: () => void;
 }
 

@@ -40,6 +40,13 @@ const languages: { code: Language; label: string }[] = [
   { code: 'mr', label: 'मराठी' },
 ];
 
+/**
+ * Universal Desktop Navigation Sidebar.
+ * Provides access to all major app modules, user XP tracking, 
+ * language selection, and journey reset.
+ * 
+ * @returns {JSX.Element} The rendered desktop sidebar.
+ */
 export function DesktopSidebar() {
   const pathname = usePathname();
   const router = useRouter();
@@ -167,6 +174,13 @@ export function DesktopSidebar() {
   );
 }
 
+/**
+ * Mobile-specific Bottom Navigation Bar.
+ * Optimized for thumb-reach and one-handed operation.
+ * Includes a quick-access reset button for the user journey.
+ * 
+ * @returns {JSX.Element} The rendered mobile navigation bar.
+ */
 export function MobileBottomNav() {
   const pathname = usePathname();
   const router = useRouter();

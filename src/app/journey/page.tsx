@@ -7,6 +7,13 @@ import { useAppStore } from '@/lib/store';
 import { useTranslation } from '@/lib/i18n/provider';
 import { TrustLabel } from '@/components/trust-label';
 
+/**
+ * The Interactive Voter Roadmap Page.
+ * Displays a tailored step-by-step sequence of civic tasks based on the user's persona.
+ * Includes automatic state synchronization with the roadmap blueprints.
+ * 
+ * @returns {JSX.Element} The rendered roadmap page.
+ */
 export default function JourneyPage() {
   const { t } = useTranslation();
   const router = useRouter();

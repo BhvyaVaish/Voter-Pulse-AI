@@ -11,6 +11,15 @@ const trustConfig: Record<TrustLevel, { icon: typeof ShieldCheck; color: string;
   ECI_SOURCE: { icon: ShieldCheck, color: 'text-emerald-600', bg: 'bg-emerald-50 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-800', label: 'ECI Source', tooltip: 'Based on Election Commission of India data and constitutional term calculations' },
 };
 
+/**
+ * Informational Trust Label component.
+ * Displays a badge indicating the source and reliability of the associated data.
+ * 
+ * @param {Object} props - Component props.
+ * @param {TrustLevel} props.level - The trust tier (OFFICIAL, VERIFIED, etc.).
+ * @param {'sm' | 'xs'} [props.size='sm'] - Visual size of the label.
+ * @returns {JSX.Element} The rendered trust badge.
+ */
 export function TrustLabel({ level, size = 'sm' }: { level: TrustLevel; size?: 'sm' | 'xs' }) {
   const config = trustConfig[level];
   const Icon = config.icon;
